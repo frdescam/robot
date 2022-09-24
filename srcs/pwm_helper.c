@@ -1,4 +1,11 @@
-#include<p18f2520.h>
+/* 
+ * File:   pwm_helper.c
+ * Author: Descamps Francois
+ *
+ * Created on September 24, 2022, 5:50 PM
+ */
+
+#include <p18f2520.h>
 
 void update_rc1_pwm_duty_cycle(unsigned short new_duty_cycle)
 {
