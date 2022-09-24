@@ -19,9 +19,23 @@ void main(void) {
 
     // Prescaler = /1
     T2CONbits.T2CKPS = 0;
-    // PWM Period = 10 kHz => 4 000 000 / (4 * 10 000) - 1 = 99
+    
+    /*
+     * PWM Period (10 kHz) :
+     * 
+     * PR2 = fosc / (4 * fpwm * prescaler) - 1
+     * => 4 000 000 / (4 * 10 000) - 1 = 99
+     *                                   ^^
+     */
     PR2 = 99;
-    // Duty cycle = 50% => (50 * 4 000 000) / (100 * 10 000) = 200
+
+    /*
+     * Duty cycle (50%) :
+     * 
+     * (DC in % * fosc) / (100 * prescaler * fpwm)
+     * => (50 * 4 000 000) / (100 * 10 000) = 200    // Why tf not 1MHz as fosc ???
+     *                                        ^^^
+     */
     CCPR1L = 200 >> 2;
     CCP1CONbits.DC1B = 200 & 0b11;
     CCPR2L = 200 >> 2;
