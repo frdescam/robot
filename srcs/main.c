@@ -17,25 +17,23 @@ void main(void) {
     //Timer2 activation
     T2CONbits.TMR2ON = 1;
 
-    //prescaler = /1
-    T2CONbits.T2CKPS0 = 0;
-    T2CONbits.T2CKPS1 = 0;
-    //PR2
-    PR2 = 0x18;
-    // Rapport cyclique = 50% = 500
-    CCPR1L = 0b00110010;
-    CCPR2L = 0b00110010;
+    // Prescaler = /1
+    T2CONbits.T2CKPS = 0;
+    // PWM Period = 10 kHz => 4 000 000 / (4 * 10 000) - 1 = 99
+    PR2 = 99;
+    // Rapport cyclique = 50% => (50 × 4 000 000) ÷ (100 × 10 000) = 200
+    CCPR1L = 200;
+    CCP1CONbits.DC1B = 0;
+    CCPR2L = 200;
+    CCP2CONbits.DC2B = 0;
 
     // Mode de PWM
-    
-    CCP1CONbits.DC1B = 0b00;
     CCP1CONbits.CCP1M = 0b1100;
-
-    CCP2CONbits.DC2B = 0b00;
     CCP2CONbits.CCP2M = 0b1100;
 
-    //postscaler = /10
-    T2CONbits.T2OUTPS = 0b1001;
+    // Postscaler = /10
+    T2CONbits.T2OUTPS = 0b1001; 
+
     while(1) {
         /* NOP */
     }
