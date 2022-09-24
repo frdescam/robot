@@ -12,7 +12,7 @@
 void main(void) {
     // Pin RC2 as output
     TRISCbits.RC2 = 0;
-    // Pin RC1 as ouput
+    // Pin RC1 as output
     TRISCbits.RC1 = 0;
     // Activating Timer2
     T2CONbits.TMR2ON = 1;
@@ -46,7 +46,7 @@ void main(void) {
     CCP2CONbits.CCP2M = 0b1100;
 
     // Postscaler = /10
-    T2CONbits.T2OUTPS = 0b1001; 
+    T2CONbits.T2OUTPS = 0b1001; // Looks useless
 
     while(1) {
         /* NOP */
