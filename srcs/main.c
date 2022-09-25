@@ -13,6 +13,7 @@
 
 int i;
 int duty_cycle_incr = 0;
+int counter_timer1 = 0;
 
 
 void init_timer1(void)
@@ -25,8 +26,8 @@ void init_timer1(void)
     T1CONbits.TMR1CS = 0;
     //Timer1 Oscillator Enable
     T1CONbits.T1OSCEN = 1;
-    // Use /4 prescaler => interruption period = 0,26214 s
-    T1CONbits.T1CKPS = 0b10;
+    // Use /1 prescaler => interruption period = 0,065535 s
+    T1CONbits.T1CKPS = 0b00;
     // Use internal clock (work as timer not counter)
     T1CONbits.T1RUN = 1;
     // Configure it to use 16 bits
@@ -50,8 +51,14 @@ void enable_timer1_interrupt(void)
 #pragma interrupt handle_timer1_interrupt
 void handle_timer1_interrupt(void)
 {
-    acceleration_mode;
+    counter_timer1 ++;
     
+    if(counter_timer1 < 62)
+        acceleration_mode();
+    if(counter_timer1 >= 62 && counter_timer1 <= 162)
+        constant_speed_mode();
+    if(counter_timer1 >= 162 && counter_timer1 <= 224 )
+        decceleration_mode();
     
     if (INTCON3bits.INT1IF)
     {
@@ -67,15 +74,21 @@ void IntHighVector(void)
 
 void acceleration_mode(void)
 {
-    duty_cycle_incr ++;
+    if(duty_cycle_incr <=200)
+    {
+        
+        duty_cycle_incr ++;
     
-    update_rc1_pwm_duty_cycle(duty_cycle_incr);
-    update_rc2_pwm_duty_cycle(duty_cycle_incr);
+        update_rc1_pwm_duty_cycle(duty_cycle_incr);
+        update_rc2_pwm_duty_cycle(duty_cycle_incr);  
+    }
 
 }
 
 void decceleration_mode(void)
 {
+    if(duty_cycle_incr <=200)
+
     duty_cycle_incr --;
     
     update_rc1_pwm_duty_cycle(duty_cycle_incr);
@@ -97,8 +110,8 @@ void main(void)
     {
         /* NOP */
     }
-    update_rc1_pwm_duty_cycle(200);
-    update_rc2_pwm_duty_cycle(200);
+//    update_rc1_pwm_duty_cycle(200);
+//    update_rc2_pwm_duty_cycle(200);
     while(1)
     {
         /* NOP */
