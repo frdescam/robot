@@ -46,6 +46,23 @@ void enable_timer1_interrupt(void)
 }
 
 
+#pragma interrupt handle_timer1_interrupt
+void handle_timer1_interrupt(void)
+{
+    if (INTCON3bits.INT1IF)
+    {
+        INTCON3bits.INT1IF = 0;
+    }
+}
+
+#pragma code HighVector=0x08
+void IntHighVector(void)
+{
+    _asm goto handle_timer1_interrupt _endasm
+}
+
+
+
 
 
 
