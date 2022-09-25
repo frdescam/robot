@@ -1,6 +1,6 @@
 /*
  * File:   main.c
- * Author: Descamps Francois
+ * Author: Descamps Francois et Gioda Alexis
  *
  * Created on 23 septembre 2022, 23:26
  */
@@ -12,6 +12,31 @@
 #pragma config PBADEN = OFF, WDT = OFF, LVP = OFF, DEBUG = ON
 
 int i;
+
+void init_timer1(void)
+{
+    // Enable Timer 1
+    T1CONbits.TMR1ON = 1;
+    // Use internal clock (work as timer not counter)
+    T1CONbits.TMR1CS = 0;
+    // Do not synchronize external clock input
+    T1CONbits.TMR1CS = 0;
+    //Timer1 Oscillator Enable
+    T1CONbits.T1OSCEN = 1;
+    // Use /8 prescaler => interruption period = 0,524288 s
+    T1CONbits.T1CKPS0 = 1;
+    T1CONbits.T1CKPS1 = 1;
+    // Use internal clock (work as timer not counter)
+    T1CONbits.T1RUN = 1;
+    // Configure it to use 16 bits
+    T1CONbits.RD16 = 1; 
+}
+
+
+
+
+
+
 
 void main(void)
 {

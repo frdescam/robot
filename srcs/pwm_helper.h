@@ -1,6 +1,6 @@
 /* 
  * File:   pwm_helper.h
- * Author: Descamps Francois
+ * Author: Descamps Francois et Alexis Gioda
  *
  * Created on September 24, 2022, 5:48 PM
  */
@@ -22,7 +22,7 @@ void init_pwm(void);
  * (DC in % * fosc) / (100 * prescaler * fpwm)
  * 
  * Example with 50% duty cycle :
- * => (50 * 4 000 000) / (100 * 10 000) = 200    // Why tf not 1MHz as fosc ???
+ * => (50 * 4 000 000) / (100 * 10 000) = 200    //Why tf not 1MHz as fosc ???
  * 
  * /!\ PWM should have been initialized by 'init_pwm' before calling this function
  */

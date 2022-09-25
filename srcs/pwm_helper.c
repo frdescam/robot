@@ -1,6 +1,6 @@
 /* 
  * File:   pwm_helper.c
- * Author: Descamps Francois
+ * Author: Descamps Francois et Alexis Gioda
  *
  * Created on September 24, 2022, 5:50 PM
  */
