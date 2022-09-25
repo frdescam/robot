@@ -7,6 +7,7 @@
 
 #include <p18f2520.h>
 #include "pwm_helper.h"
+#include "battery_supervision.h"
 
 #pragma config OSC = INTIO67
 #pragma config PBADEN = OFF, WDT = OFF, LVP = OFF, DEBUG = ON
@@ -15,6 +16,7 @@ int i;
 
 void main(void)
 {
+    setup_battery_supervision();
     init_pwm();
     for (i = 0; i < 10000; i++)
     {
