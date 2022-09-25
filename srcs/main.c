@@ -32,6 +32,18 @@ void init_timer1(void)
     T1CONbits.RD16 = 1; 
 }
 
+void enable_timer1_interrupt(void)
+{
+    // Enable interruptions globaly
+    INTCONbits.GIE = 1;
+    // Enable peripheral interruptions
+    INTCONbits.PEIE = 1;
+    
+    //Enable timer1 interruptions
+    PIR1bits.TMR1IF = 1;
+    // Set timer1 interrupt as hight priority
+    IPR1bits.TMR1IP = 1;
+}
 
 
 
