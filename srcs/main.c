@@ -12,6 +12,8 @@
 #pragma config PBADEN = OFF, WDT = OFF, LVP = OFF, DEBUG = ON
 
 int i;
+int duty_cycle_incr = 0;
+
 
 void init_timer1(void)
 {
@@ -23,9 +25,8 @@ void init_timer1(void)
     T1CONbits.TMR1CS = 0;
     //Timer1 Oscillator Enable
     T1CONbits.T1OSCEN = 1;
-    // Use /8 prescaler => interruption period = 0,524288 s
-    T1CONbits.T1CKPS0 = 1;
-    T1CONbits.T1CKPS1 = 1;
+    // Use /4 prescaler => interruption period = 0,26214 s
+    T1CONbits.T1CKPS = 0b10;
     // Use internal clock (work as timer not counter)
     T1CONbits.T1RUN = 1;
     // Configure it to use 16 bits
@@ -49,6 +50,9 @@ void enable_timer1_interrupt(void)
 #pragma interrupt handle_timer1_interrupt
 void handle_timer1_interrupt(void)
 {
+    acceleration_mode;
+    
+    
     if (INTCON3bits.INT1IF)
     {
         INTCON3bits.INT1IF = 0;
@@ -61,9 +65,28 @@ void IntHighVector(void)
     _asm goto handle_timer1_interrupt _endasm
 }
 
+void acceleration_mode(void)
+{
+    duty_cycle_incr ++;
+    
+    update_rc1_pwm_duty_cycle(duty_cycle_incr);
+    update_rc2_pwm_duty_cycle(duty_cycle_incr);
 
+}
 
+void decceleration_mode(void)
+{
+    duty_cycle_incr --;
+    
+    update_rc1_pwm_duty_cycle(duty_cycle_incr);
+    update_rc2_pwm_duty_cycle(duty_cycle_incr);
+}
 
+void constant_speed_mode(void)
+{
+    update_rc1_pwm_duty_cycle(200);
+    update_rc2_pwm_duty_cycle(200);
+}
 
 
 
