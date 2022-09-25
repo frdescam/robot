@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c pwm_helper.c battery_supervision.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c pwm_helper.c battery_supervision.c handle_interrupts.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/pwm_helper.o ${OBJECTDIR}/battery_supervision.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/pwm_helper.o.d ${OBJECTDIR}/battery_supervision.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/pwm_helper.o ${OBJECTDIR}/battery_supervision.o ${OBJECTDIR}/handle_interrupts.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/pwm_helper.o.d ${OBJECTDIR}/battery_supervision.o.d ${OBJECTDIR}/handle_interrupts.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/pwm_helper.o ${OBJECTDIR}/battery_supervision.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/pwm_helper.o ${OBJECTDIR}/battery_supervision.o ${OBJECTDIR}/handle_interrupts.o
 
 # Source Files
-SOURCEFILES=main.c pwm_helper.c battery_supervision.c
+SOURCEFILES=main.c pwm_helper.c battery_supervision.c handle_interrupts.c
 
 
 
@@ -126,6 +126,14 @@ ${OBJECTDIR}/battery_supervision.o: battery_supervision.c  nbproject/Makefile-${
 	@${DEP_GEN} -d ${OBJECTDIR}/battery_supervision.o 
 	@${FIXDEPS} "${OBJECTDIR}/battery_supervision.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
+${OBJECTDIR}/handle_interrupts.o: handle_interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/handle_interrupts.o.d 
+	@${RM} ${OBJECTDIR}/handle_interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/handle_interrupts.o   handle_interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/handle_interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/handle_interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
@@ -150,6 +158,14 @@ ${OBJECTDIR}/battery_supervision.o: battery_supervision.c  nbproject/Makefile-${
 	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/battery_supervision.o   battery_supervision.c 
 	@${DEP_GEN} -d ${OBJECTDIR}/battery_supervision.o 
 	@${FIXDEPS} "${OBJECTDIR}/battery_supervision.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/handle_interrupts.o: handle_interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/handle_interrupts.o.d 
+	@${RM} ${OBJECTDIR}/handle_interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -oa-  -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/handle_interrupts.o   handle_interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/handle_interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/handle_interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
 endif
 
