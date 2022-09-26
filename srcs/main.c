@@ -40,7 +40,7 @@ void enable_timer1_interrupt(void)
     // Enable peripheral interruptions
     INTCONbits.PEIE = 1;
     //Enable timer1 interruptions
-    INTCONbits.TMR0IE = 1;
+    PIE1bits.TMR1IE = 1;
     //Enable interruptions priority
     RCONbits.IPEN = 1;
     // Set timer1 interrupt as hight priority
@@ -91,7 +91,7 @@ void constant_speed_mode(void)
 void handle_timer1_interrupt(void)
 {
     
-    if(!motor_mode_OFF)
+    if(!motor_mode_OFF) 
     {
         counter_timer1 ++;
         
