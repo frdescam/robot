@@ -14,9 +14,9 @@ int is_low_battery = 0;
 void handle_high_priority_interrupts(void)
 {
     // Timer0
-    if (INTCONbits.INT0IF)
+    if (INTCONbits.TMR0IF)
     {
-        INTCONbits.INT0IF = 0;
+        INTCONbits.TMR0IF = 0;
         // Start the ADC conversion
         ADCON0bits.GO = 1;
     }
@@ -24,9 +24,10 @@ void handle_high_priority_interrupts(void)
     if (PIR1bits.ADIF)
     {
         PIR1bits.ADIF = 0;
-        if (ADRESH < 30000)
+        if (ADRESH < 140)
         {
-            is_low_battery = 1;
+            // turn on battery status LED
+            PORTBbits.RB5 = 1;
         }
     }
 }

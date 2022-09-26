@@ -22,8 +22,8 @@ void main(void)
     {
         /* NOP */
     }
-    update_rc1_pwm_duty_cycle(200);
-    update_rc2_pwm_duty_cycle(200);
+    //update_rc1_pwm_duty_cycle(200);
+    //update_rc2_pwm_duty_cycle(200);
     while(1)
     {
         /* NOP */

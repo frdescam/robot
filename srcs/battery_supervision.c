@@ -20,7 +20,7 @@ void init_timer0(void)
     // Use prescaler
     T0CONbits.PSA = 0;
     // Use /256 prescaler => interruption period = 16,777216 s
-    T0CONbits.T0PS = 0b111;
+    T0CONbits.T0PS = 0b100; // Changed, keep 111
 }
 
 void init_adc(void)
@@ -46,6 +46,14 @@ void init_adc(void)
     
     // Acquisition time 
     ADCON2bits.ACQT = 0b010;
+}
+
+void init_battery_status_led(void)
+{
+    // Pin RB5 as output
+    TRISBbits.RB5 = 0;
+    // Turn off battery status LED
+    PORTBbits.RB5 = 0;
 }
 
 void enable_timer0_interrupts(void)
@@ -80,6 +88,7 @@ void setup_battery_supervision(void)
 {
     init_timer0();
     init_adc();
+    init_battery_status_led();
     enable_timer0_interrupts();
     enable_adc_interrupts();
 }
