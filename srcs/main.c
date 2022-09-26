@@ -24,7 +24,7 @@ void init_timer1(void)
     // Use internal clock
     T1CONbits.TMR1CS = 0;
     //Timer1 Oscillator Enable
-    T1CONbits.T1OSCEN = 1;
+    T1CONbits.T1OSCEN = 0;
     // Use /1 prescaler => interruption period = 0,065535 s
     T1CONbits.T1CKPS = 0b00;
     // Use internal clock
