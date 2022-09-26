@@ -87,12 +87,14 @@ void acceleration_mode(void)
 
 void decceleration_mode(void)
 {
-    if(duty_cycle_incr <=200)
-
-    duty_cycle_incr --;
+    if(duty_cycle_incr >=0)
+    {
+        duty_cycle_incr --;
     
-    update_rc1_pwm_duty_cycle(duty_cycle_incr);
-    update_rc2_pwm_duty_cycle(duty_cycle_incr);
+        update_rc1_pwm_duty_cycle(duty_cycle_incr);
+        update_rc2_pwm_duty_cycle(duty_cycle_incr);
+        
+    }
 }
 
 void constant_speed_mode(void)
