@@ -34,9 +34,16 @@ void update_rc2_pwm_duty_cycle(unsigned short new_duty_cycle)
 void init_pwm(void)
 {
     // Pin RC2 as output
-    TRISCbits.RC2 = 0;  
+     TRISCbits.RC2 = 0;  
     // Pin RC1 as output
     TRISCbits.RC1 = 0;
+    //Pin RA6 DIRD a 1
+    DDRAbits.RA6 = 1;
+    //Pin RA7 DIRG a 1
+     DDRAbits.RA7 = 1;
+
+    
+    
     // Activating Timer2
     T2CONbits.TMR2ON = 1;
 

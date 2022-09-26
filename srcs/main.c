@@ -12,7 +12,7 @@
 #pragma config PBADEN = OFF, WDT = OFF, LVP = OFF, DEBUG = ON
 
 int i;
-int duty_cycle_incr = 0;
+unsigned short duty_cycle_incr = 0;
 int counter_timer1 = 0;
 int motor_mode_OFF = 0;
 
@@ -21,14 +21,14 @@ void init_timer1(void)
 {
     // Enable Timer 1
     T1CONbits.TMR1ON = 1;
-    // Use internal clock (work as timer not counter)
+    // Use internal clock
     T1CONbits.TMR1CS = 0;
     //Timer1 Oscillator Enable
     T1CONbits.T1OSCEN = 1;
     // Use /1 prescaler => interruption period = 0,065535 s
     T1CONbits.T1CKPS = 0b00;
-    // Use internal clock (work as timer not counter)
-    T1CONbits.T1RUN = 1;
+    // Use internal clock
+    T1CONbits.T1RUN = 0;
     // Configure it to use 16 bits
     T1CONbits.RD16 = 1;
 }
@@ -51,20 +51,18 @@ void acceleration_mode(void)
 {
     if(duty_cycle_incr <=200)
     {
-        
-        duty_cycle_incr ++;
+        duty_cycle_incr = duty_cycle_incr + 5;
     
         update_rc1_pwm_duty_cycle(duty_cycle_incr);
-        update_rc2_pwm_duty_cycle(duty_cycle_incr);  
+        update_rc2_pwm_duty_cycle(duty_cycle_incr);
     }
-
 }
 
 void decceleration_mode(void)
 {
     if(duty_cycle_incr >=0)
     {
-        duty_cycle_incr --;
+        duty_cycle_incr = duty_cycle_incr - 5;
     
         update_rc1_pwm_duty_cycle(duty_cycle_incr);
         update_rc2_pwm_duty_cycle(duty_cycle_incr);
@@ -95,13 +93,13 @@ void handle_timer1_interrupt(void)
     {
         counter_timer1 ++;
         
-        if(counter_timer1 < 200)
+        if(counter_timer1 <= 62)
             acceleration_mode();
-        if(counter_timer1 >= 200 && counter_timer1 <= 400)
+        if(counter_timer1 >= 162 && counter_timer1 <= 200)
             constant_speed_mode();
-        if(counter_timer1 >= 400 && counter_timer1 <= 600 )
+        if(counter_timer1 >= 200 && counter_timer1 <= 262 )
             decceleration_mode();
-        if(counter_timer1 >= 600)
+        if(counter_timer1 >= 262)
         {
             stop_motor();
             counter_timer1 = 0;
@@ -122,12 +120,14 @@ void IntHighVector(void)
 void main(void)
 {
     init_pwm();
+    init_timer1();
+    enable_timer1_interrupt();
 //    for (i = 0; i < 10000; i++)
 //    {
 //        /* NOP */
 //    }
-//    update_rc1_pwm_duty_cycle(200);
-//    update_rc2_pwm_duty_cycle(200);
+//    update_rc1_pwm_duty_cycle(100);
+//    update_rc2_pwm_duty_cycle(100);
     while(1)
     {
         /* NOP */
