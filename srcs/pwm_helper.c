@@ -60,5 +60,5 @@ void init_pwm(void)
     update_rc2_pwm_duty_cycle(0);
 
     // Postscaler = /10
-    T2CONbits.T2OUTPS = 0b1001; // Looks useless
+    T2CONbits.T2OUTPS = 0b1001;
 }
