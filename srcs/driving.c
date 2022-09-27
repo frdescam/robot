@@ -1,0 +1,82 @@
+/*
+ * File:   driving.c
+ * Author: Descamps Francois et Gioda Alexis
+ *
+ * Created on 26 septembre 2022, 12:26
+ */
+
+#include <p18f2520.h>
+#include "pwm_helper.h"
+#include "driving.h"
+
+unsigned short duty_cycle_incr = 0;
+int motor_mode_OFF;
+
+void init_timer1(void)
+{
+    motor_mode_OFF = 0;
+    // Enable Timer 1
+    T1CONbits.TMR1ON = 1;
+    // Use internal clock
+    T1CONbits.TMR1CS = 0;
+    //Timer1 Oscillator Enable
+    T1CONbits.T1OSCEN = 0;
+    // Use /1 prescaler => interruption period = 0,065535 s
+    T1CONbits.T1CKPS = 0b00;
+    // Use internal clock
+    T1CONbits.T1RUN = 0;
+    // Configure it to use 16 bits
+    T1CONbits.RD16 = 1;
+}
+
+void enable_timer1_interrupt(void)
+{
+    // Enable interruptions globaly
+    INTCONbits.GIE = 1;
+    // Enable peripheral interruptions
+    INTCONbits.PEIE = 1;
+    //Enable timer1 interruptions
+    PIE1bits.TMR1IE = 1;
+    //Enable interruptions priority
+    RCONbits.IPEN = 1;
+    // Set timer1 interrupt as hight priority
+    IPR1bits.TMR1IP = 1;
+}
+
+void acceleration_mode(void)
+{
+    if(duty_cycle_incr <=200)
+    {
+        duty_cycle_incr = duty_cycle_incr + 5;
+    
+        update_rc1_pwm_duty_cycle(duty_cycle_incr);
+        update_rc2_pwm_duty_cycle(duty_cycle_incr);
+    }
+}
+
+void decceleration_mode(void)
+{
+    if(duty_cycle_incr >=0)
+    {
+        duty_cycle_incr = duty_cycle_incr - 5;
+    
+        update_rc1_pwm_duty_cycle(duty_cycle_incr);
+        update_rc2_pwm_duty_cycle(duty_cycle_incr);
+        
+    }
+}
+
+void stop_motor(void)
+{
+    update_rc1_pwm_duty_cycle(0);
+    update_rc2_pwm_duty_cycle(0);
+    duty_cycle_incr = 0;
+    
+    motor_mode_OFF = 1;
+}
+
+void constant_speed_mode(void)
+{
+    update_rc1_pwm_duty_cycle(200);
+    update_rc2_pwm_duty_cycle(200);
+}

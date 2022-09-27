@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/alexi/OneDrive/Documents/GitHub/robot/srcs/main.c</file>
-            <file>file:/C:/Users/alexi/OneDrive/Documents/GitHub/robot/srcs/pwm_helper.c</file>
-            <file>file:/C:/Users/alexi/OneDrive/Documents/GitHub/robot/srcs/pwm_helper.h</file>
-=======
+            <file>file:/home/fdec/PROJETS/Mines/robot/srcs/driving.c</file>
+            <file>file:/home/fdec/PROJETS/Mines/robot/srcs/main.c</file>
             <file>file:/home/fdec/PROJETS/Mines/robot/srcs/pwm_helper.c</file>
-            <file>file:/home/fdec/PROJETS/Mines/robot/srcs/battery_supervision.c</file>
             <file>file:/home/fdec/PROJETS/Mines/robot/srcs/handle_interrupts.c</file>
->>>>>>> fdec
+            <file>file:/home/fdec/PROJETS/Mines/robot/srcs/battery_supervision.c</file>
+            <file>file:/home/fdec/PROJETS/Mines/robot/srcs/driving.h</file>
         </group>
     </open-files>
 </project-private>
