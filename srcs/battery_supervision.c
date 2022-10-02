@@ -69,8 +69,6 @@ void enable_timer0_interrupts(void)
 {
     // Enable interruptions globally
     INTCONbits.GIE = 1;
-    // Enable peripheral interruptions
-    //INTCONbits.PEIE = 1;
     // Enable timer0 interruptions
     INTCONbits.TMR0IE = 1;
     // Enable interruptions priority
@@ -83,8 +81,6 @@ void enable_adc_interrupts(void)
 {
     // Enable interruptions globally
     INTCONbits.GIE = 1;
-    // Enable peripheral interruptions
-    INTCONbits.PEIE = 1;
     // Enable adc interruptions
     PIE1bits.ADIE = 1;
     // Enable interruptions priority
@@ -101,5 +97,5 @@ void start_battery_supervision(void)
     enable_timer0_interrupts();
     enable_adc_interrupts();
     // Start first battery check
-    ADCON0bits.GO = 1;
+    //ADCON0bits.GO = 1;
 }

@@ -37,19 +37,7 @@ void init_pwm(void)
     TRISCbits.RC2 = 0;  
     // Pin RC1 as output
     TRISCbits.RC1 = 0;
-    
-    //Pin RA6 as output
-    TRISAbits.RA6 = 0;
-    //Pin RA7 as output
-    TRISAbits.RA7 = 0;
-    
-    //Pin RA6 DIRD a 1
-    PORTAbits.RA6 = 0;
-    //Pin RA7 DIRG a 1
-    PORTAbits.RA7 = 0;
 
-    
-    
     // Activating Timer2
     T2CONbits.TMR2ON = 1;
 
@@ -71,7 +59,4 @@ void init_pwm(void)
     
     update_rc1_pwm_duty_cycle(0);
     update_rc2_pwm_duty_cycle(0);
-
-    // Postscaler = /10
-    T2CONbits.T2OUTPS = 0b1001;
 }

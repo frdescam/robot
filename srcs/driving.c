@@ -15,17 +15,26 @@ int counter_timer1 = 0;
 
 void init_direction_gpio(void)
 {
-    // TODO : implement this
+    // Pin RA6 as output (right motor)
+    TRISAbits.RA6 = 0;
+    // Pin RA7 as output (left motor)
+    TRISAbits.RA7 = 0;
 }
 
 void set_direction_forward(void)
 {
-    // TODO : implement this
+    // Right motor forward
+    PORTAbits.RA6 = 1;
+    // Left motor forward
+    PORTAbits.RA7 = 1;
 }
 
 void set_direction_backward(void)
 {
-    // TODO : implement this
+    // Right motor backward
+    PORTAbits.RA6 = 0;
+    // Left motor backward
+    PORTAbits.RA7 = 0;
 }
 
 void init_timer1(void)
