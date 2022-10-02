@@ -19,6 +19,7 @@ void handle_high_priority_interrupts(void)
     // Timer0
     if (INTCONbits.TMR0IF)
     {
+        // Clear interrupt flag
         INTCONbits.TMR0IF = 0;
         // Start the ADC conversion
         ADCON0bits.GO = 1;
@@ -26,6 +27,7 @@ void handle_high_priority_interrupts(void)
     // ADC
     if (PIR1bits.ADIF)
     {
+        // Clear interrupt flag
         PIR1bits.ADIF = 0;
         if (ADRESH < 140)
         {
@@ -36,6 +38,7 @@ void handle_high_priority_interrupts(void)
     // Timer1
     if (PIR1bits.TMR1IF)
     {
+        // Clear interrupt flag
         PIR1bits.TMR1IF = 0;
 
         if(!motor_mode_OFF2) 
