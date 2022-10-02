@@ -1,6 +1,6 @@
 /* 
  * File:   battery_supervision.c
- * Author: Descamps Francois
+ * Author: Descamps Francois et Alexis Gioda
  *
  * Created on September 25, 2022, 12:35 PM
  */
