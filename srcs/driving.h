@@ -1,6 +1,6 @@
 /* 
  * File:   driving.h
- * Author: Descamps Francois & Gioda Alexis
+ * Author: Descamps Francois & Alexis Gioda
  *
  * Created on September 26, 2022, 12:27 PM
  */

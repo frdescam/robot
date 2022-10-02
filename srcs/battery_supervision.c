@@ -22,6 +22,8 @@ void init_timer0(void)
     // Use /256 prescaler => interruption period = 15 s with reload = 6942
     T0CONbits.T0PS = 0b111;
     /*
+     * TODO : update the reload value, this one isn't 15s
+     * 
      * Reload value is on 16 bits so it should be given to peripheral using
      * 2 register :
      *   - TMR0L for 8 MSB
@@ -97,5 +99,5 @@ void start_battery_supervision(void)
     enable_timer0_interrupts();
     enable_adc_interrupts();
     // Start first battery check
-    //ADCON0bits.GO = 1;
+    ADCON0bits.GO = 1;
 }

@@ -1,5 +1,5 @@
 /* 
- * File:   battery_supervision.c
+ * File:   handle_interrupts.c
  * Author: Descamps Francois & Alexis Gioda
  *
  * Created on September 25, 2022, 5:51 PM
@@ -20,6 +20,8 @@ void handle_high_priority_interrupts(void)
         // Start the ADC conversion
         ADCON0bits.GO = 1;
         /*
+         * TODO : update the reload value, this one isn't 15s
+         * 
          * Reload value is on 16 bits so it should be given to peripheral using
          * 2 register :
          *   - TMR0L for 8 MSB

@@ -1,6 +1,6 @@
 /*
  * File:   main.c
- * Author: Descamps Francois & Gioda Alexis
+ * Author: Descamps Francois & Alexis Gioda
  *
  * Created on 23 septembre 2022, 23:26
  */
