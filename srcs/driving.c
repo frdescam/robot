@@ -1,17 +1,32 @@
 /*
  * File:   driving.c
- * Author: Descamps Francois et Gioda Alexis
+ * Author: Descamps Francois & Gioda Alexis
  *
  * Created on 26 septembre 2022, 12:26
  */
 
 #include <p18f2520.h>
-#include "pwm_helper.h"
+#include "pwm.h"
 #include "driving.h"
 
 unsigned short duty_cycle_incr = 0;
 int motor_mode_OFF = 0;
 int counter_timer1 = 0;
+
+void init_direction_gpio(void)
+{
+    // TODO : implement this
+}
+
+void set_direction_forward(void)
+{
+    // TODO : implement this
+}
+
+void set_direction_backward(void)
+{
+    // TODO : implement this
+}
 
 void init_timer1(void)
 {
@@ -82,7 +97,7 @@ void constant_speed_mode(void)
     update_rc2_pwm_duty_cycle(200);
 }
 
-void handle_motor_speed(void)
+void update_motor_speed(void)
 {
     if(!motor_mode_OFF) 
     {
@@ -99,4 +114,13 @@ void handle_motor_speed(void)
             counter_timer1 = 0;
         }
     }
+}
+
+void start_driving_procedure(void)
+{
+    init_direction_gpio();
+    set_direction_forward();
+    init_pwm();
+    init_timer1();
+    enable_timer1_interrupt();
 }

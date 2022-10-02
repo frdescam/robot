@@ -1,6 +1,6 @@
 /* 
  * File:   battery_supervision.c
- * Author: Descamps Francois et Alexis Gioda
+ * Author: Descamps Francois & Alexis Gioda
  *
  * Created on September 25, 2022, 5:51 PM
  */
@@ -19,6 +19,15 @@ void handle_high_priority_interrupts(void)
         INTCONbits.TMR0IF = 0;
         // Start the ADC conversion
         ADCON0bits.GO = 1;
+        /*
+         * Reload value is on 16 bits so it should be given to peripheral using
+         * 2 register :
+         *   - TMR0L for 8 MSB
+         *   - TMR0H for 8 LSB
+         * Using 6942 to get a 15 s interruption period
+         */
+        TMR0H = 6942 & 0b11111111;
+        TMR0L = 6942 >> 8;
     }
     // ADC
     if (PIR1bits.ADIF)
@@ -36,7 +45,8 @@ void handle_high_priority_interrupts(void)
     {
         // Clear interrupt flag
         PIR1bits.TMR1IF = 0;
-        handle_motor_speed();
+
+        update_motor_speed();
     }
 }
 

@@ -1,6 +1,6 @@
 /* 
  * File:   battery_supervision.c
- * Author: Descamps Francois et Alexis Gioda
+ * Author: Descamps Francois & Alexis Gioda
  *
  * Created on September 25, 2022, 12:35 PM
  */
@@ -9,18 +9,27 @@
 
 void init_timer0(void)
 {
-    // Enable Timer 0
+    // Enable Timer0
     T0CONbits.TMR0ON = 1;
     // Configure it to use 16 bits
     T0CONbits.T08BIT = 0;
     // Use internal clock (work as timer not counter)
     T0CONbits.T0CS = 0;
-    // Increment timer on rising edge
+    // Increment counter on rising edge
     T0CONbits.T0SE = 0;
     // Use prescaler
     T0CONbits.PSA = 0;
-    // Use /256 prescaler => interruption period = 16,777216 s
-    T0CONbits.T0PS = 0b100; // Changed, keep 111
+    // Use /256 prescaler => interruption period = 15 s with reload = 6942
+    T0CONbits.T0PS = 0b111;
+    /*
+     * Reload value is on 16 bits so it should be given to peripheral using
+     * 2 register :
+     *   - TMR0L for 8 MSB
+     *   - TMR0H for 8 LSB
+     * Using 6942 to get a 15 s interruption period
+     */
+    TMR0H = 6942 & 0b11111111;
+    TMR0L = 6942 >> 8;
 }
 
 void init_adc(void)
@@ -61,7 +70,7 @@ void enable_timer0_interrupts(void)
     // Enable interruptions globally
     INTCONbits.GIE = 1;
     // Enable peripheral interruptions
-    INTCONbits.PEIE = 1;
+    //INTCONbits.PEIE = 1;
     // Enable timer0 interruptions
     INTCONbits.TMR0IE = 1;
     // Enable interruptions priority
@@ -84,7 +93,7 @@ void enable_adc_interrupts(void)
     IPR1bits.ADIP = 1;
 }
 
-void setup_battery_supervision(void)
+void start_battery_supervision(void)
 {
     init_timer0();
     init_adc();
