@@ -91,4 +91,6 @@ void setup_battery_supervision(void)
     init_battery_status_led();
     enable_timer0_interrupts();
     enable_adc_interrupts();
+    // Start first battery check
+    ADCON0bits.GO = 1;
 }

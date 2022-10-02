@@ -10,7 +10,8 @@
 #include "driving.h"
 
 unsigned short duty_cycle_incr = 0;
-int motor_mode_OFF;
+int motor_mode_OFF = 0;
+int counter_timer1 = 0;
 
 void init_timer1(void)
 {
@@ -79,4 +80,23 @@ void constant_speed_mode(void)
 {
     update_rc1_pwm_duty_cycle(200);
     update_rc2_pwm_duty_cycle(200);
+}
+
+void handle_motor_speed(void)
+{
+    if(!motor_mode_OFF) 
+    {
+        counter_timer1 ++;
+        if(counter_timer1 <= 62)
+            acceleration_mode();
+        if(counter_timer1 >= 162 && counter_timer1 <= 200)
+            constant_speed_mode();
+        if(counter_timer1 >= 200 && counter_timer1 <= 262 )
+            decceleration_mode();
+        if(counter_timer1 >= 262)
+        {
+            stop_motor();
+            counter_timer1 = 0;
+        }
+    }
 }

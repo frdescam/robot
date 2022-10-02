@@ -8,10 +8,6 @@
 #include <p18f2520.h>
 #include "driving.h"
 
-int is_low_battery = 0;
-int motor_mode_OFF2 = 0;
-int counter_timer1 = 0;
-
 #pragma code
 #pragma interrupt handle_high_priority_interrupts
 void handle_high_priority_interrupts(void)
@@ -40,23 +36,7 @@ void handle_high_priority_interrupts(void)
     {
         // Clear interrupt flag
         PIR1bits.TMR1IF = 0;
-
-        if(!motor_mode_OFF2) 
-        {
-            counter_timer1 ++;
-        
-            if(counter_timer1 <= 62)
-                acceleration_mode();
-            if(counter_timer1 >= 162 && counter_timer1 <= 200)
-                constant_speed_mode();
-            if(counter_timer1 >= 200 && counter_timer1 <= 262 )
-                decceleration_mode();
-            if(counter_timer1 >= 262)
-            {
-                stop_motor();
-                counter_timer1 = 0;
-            }
-        }
+        handle_motor_speed();
     }
 }
 
