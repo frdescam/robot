@@ -7,7 +7,6 @@
 
 #include <p18f2520.h>
 #include "pwm.h"
-#include "driving.h"
 
 unsigned short duty_cycle_incr = 0;
 int motor_mode_OFF = 0;
