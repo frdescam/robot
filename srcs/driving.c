@@ -41,7 +41,7 @@ void init_timer1(void)
     motor_mode_OFF = 0;
     // Enable Timer 1
     T1CONbits.TMR1ON = 1;
-    // Use internal clock
+    // Synchronize external clock input
     T1CONbits.TMR1CS = 0;
     //Timer1 Oscillator Enable
     T1CONbits.T1OSCEN = 0;
@@ -112,7 +112,7 @@ void update_motor_speed(void)
         counter_timer1 ++;
         if(counter_timer1 <= 62)
             acceleration_mode();
-        if(counter_timer1 >= 162 && counter_timer1 <= 200)
+        if(counter_timer1 >= 62 && counter_timer1 <= 200)
             constant_speed_mode();
         if(counter_timer1 >= 200 && counter_timer1 <= 262 )
             decceleration_mode();
