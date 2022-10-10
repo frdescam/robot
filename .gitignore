@@ -1,2 +1,9 @@
 build
 dist
+srcs/nbproject/Makefile-default.mk
+srcs/nbproject/Makefile-genesis.properties
+srcs/nbproject/Makefile-impl.mk
+srcs/nbproject/Makefile-local-default.mk
+srcs/nbproject/Makefile-variables.mk
+srcs/nbproject/configurations.xml
+srcs/nbproject/private
