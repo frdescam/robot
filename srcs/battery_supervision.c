@@ -21,17 +21,15 @@ void init_timer0(void)
     T0CONbits.PSA = 0;
     // Use /256 prescaler => interruption period = 15 s with reload = 6942
     T0CONbits.T0PS = 0b111;
-    /*
-     * TODO : update the reload value, this one isn't 15s
-     * 
+    /* 
      * Reload value is on 16 bits so it should be given to peripheral using
      * 2 register :
      *   - TMR0L for 8 MSB
      *   - TMR0H for 8 LSB
-     * Using 6942 to get a 15 s interruption period
+     * Using 229 to get a 15 s interruption period
      */
-    TMR0H = 6942 & 0b11111111;
-    TMR0L = 6942 >> 8;
+    TMR0H = 229 & 0b11111111;
+    TMR0L = 229 >> 8;
 }
 
 void init_adc(void)
@@ -48,14 +46,8 @@ void init_adc(void)
     ADCON1bits.VCFG = 0;
     // Left justify so we can read only left register and loose some precision
     ADCON2bits.ADFM = 0;
-
-    // TODO : change that comment
     
-    //temps de conversion TAD
-    //Fosc/4 => TAD = 1 us > TADmin = 0,7 us => définie sur le temps d'horloge définie pour l'ADC de l'horloge
-    //010 = 4*TAD = 4 us avec une plage de fonctionnement à 72°C pour un pire cas TACQ = 4.25 us
-    
-    // Acquisition time 
+    // Acquisition time
     ADCON2bits.ACQT = 0b010;
 }
 
